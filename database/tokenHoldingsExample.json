@@ -2,31 +2,31 @@
     {
         "token": "bitcoin",
         "ticker": "BTC",
-        "ammount": 2
+        "amount": 2
     },
     {
         "token": "ethcoingecko-api ID of tokenereum",
         "ticker": "ticker",
-        "ammount": 0
+        "amount": 0
     },
     {
         "token": "coingecko-api ID of token",
         "ticker": "ticker",
-        "ammount": 0
+        "amount": 0
     },
     {
         "token": "coingecko-api ID of token",
         "ticker": "ticker",
-        "ammount": 0
+        "amount": 0
     },
     {
         "token": "coingecko-api ID of token",
         "ticker": "ticker",
-        "ammount": 0
+        "amount": 0
     },
     {
         "token": "coingecko-api ID of token",
         "ticker": "ticker",
-        "ammount": 0
+        "amount": 0
     }
 ]

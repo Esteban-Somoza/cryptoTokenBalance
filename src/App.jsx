@@ -6,30 +6,30 @@ import coingeckoApiCall from './api/coingecko'
 
 function App() {
   const [tokens, setTokens] = useState([])
+  const [totalValue, setTotalValue] = useState(0)
 
   useEffect(() => {
     async function apiCall() {
-      console.log(tokenHoldings);
-      let tokenDataResponse = tokenHoldings
-      let dataForApi = tokenDataResponse.map(token => token.token).toString()
-      let data = await coingeckoApiCall(dataForApi)
-      console.log(tokenDataResponse, data);
-
-      let tokensData = tokenDataResponse.map(token => ({...token, usd: data[token.token].usd }))   
-      
-      console.log(tokensData);
+      let data = await coingeckoApiCall(tokenHoldings)
+      let totalValue = data.map(token => Number(token.value)).reduce((acc, token) => acc + token, 0)
+      setTotalValue(totalValue)
+      return setTokens(data);
     }
     apiCall()
-  }, [tokens])
+  }, [])
 
+  // console.log(tokens);
 
   return (
     <div className="App">
-      <h2>Token holdings:</h2>
-      {
-        tokens && tokens.map((token, i) => <TokenBalance key={i} token={token.token} />
-        )
-      }
+      <h2 className='title'>Token holdings:</h2>
+      <div className='information'>
+        {tokens && tokens.map((token, i) => <TokenBalance key={i} token={token.ticker} value={token.value} price={token.usd} />)}
+        <h2>Total value held:</h2>
+        {
+          totalValue && <h3>${totalValue}</h3>
+        }
+      </div>
     </div>
   )
 }

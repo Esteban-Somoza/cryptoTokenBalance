@@ -4,24 +4,18 @@ import apiCall from './api/coingecko.js'
 export default function TokenBalance(props) {
     const [price, setPrice] = useState(0)
     
-    console.log(props);
-
-    useEffect(() => {
-        async function fetchData() {
-            console.log('bla' + props.id);
-            let tokenValue = await apiCall(props.id)
-            // console.log(tokenValue);
-            return setPrice(tokenValue)
-        }
-        fetchData();
-    }, [price]);
+    // console.log(props);
 
     return (
         <div className='token'>
-            <h3 className='tok'>{props.id}:</h3>
-            <div className='a'>
-                <h4>price:</h4>
-                <h4>{price}</h4>
+            <h3 className='ticker'>{props.token}:</h3>
+            <div className='price'>
+                <h4>Token Price:</h4>
+                <h4>${props.price}</h4>
+            </div>
+            <div className='value'>
+                <h4>Value held:</h4>
+                <h4>${props.value}</h4>
             </div>
         </div>
     )
