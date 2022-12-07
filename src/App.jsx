@@ -4,9 +4,17 @@ import TokenBalance from './TokenBalance'
 import tokenHoldings from '../database/readTokenHoldings.js'
 import coingeckoApiCall from './api/coingecko'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
+
+
 function App() {
   const [tokens, setTokens] = useState([])
   const [totalValue, setTotalValue] = useState(0)
+
+  function refresh() {
+    window.location.reload();
+  }
 
   useEffect(() => {
     async function apiCall() {
@@ -34,6 +42,8 @@ function App() {
           {tokens && tokens.map((token, i) => <TokenBalance key={i} token={token.ticker} value={token.value} price={token.usd} totalValue={totalValue}/>)}
         </div>
       </div>
+      {/* <button><FontAwesomeIcon icon="fa-solid fa-rotate-right" /></button> */}   
+      <button className='refresh' onClick={refresh}><FontAwesomeIcon icon={faRotateRight} className="icon" /></button>
     </div>
   )
 }

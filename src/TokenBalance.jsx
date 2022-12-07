@@ -14,12 +14,12 @@ export default function TokenBalance(props) {
                 <h4 className='value'>${props.value}</h4>
             </div>
             <div className='data'>
-                <h5>Token Price:</h5>
-                <h4>${props.price.toFixed(2)}</h4>
-            </div>
-            <div className='data'>
                 <h5>Portion of portfolio:</h5>
                 <h4 className='value'>{(props.value/props.totalValue).toFixed(2)}%</h4>
+            </div>
+            <div className='data'>
+                <h5>Token Price:</h5>
+                <h4>${props.price.toFixed(2)}</h4>
             </div>
         </div>
     )
