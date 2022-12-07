@@ -2,12 +2,12 @@
     {
         "token": "ronin",
         "ticker": "RON",
-        "amount": 5021
+        "amount": 5000
     },
     {
         "token": "ethereum",
         "ticker": "ETH",
-        "amount": 0.2238
+        "amount": 0.2
     },
     {
         "token": "bitcoin",
@@ -17,7 +17,7 @@
     {
         "token": "covalent",
         "ticker": "CQT",
-        "amount": 1921
+        "amount": 1900
     },
     {
         "token": "matic-network",
@@ -27,11 +27,11 @@
     {
         "token": "looksrare",
         "ticker": "LOOKS",
-        "amount": 1169
+        "amount": 1000
     },
     {
         "token": "weth",
         "ticker": "WETH",
-        "amount": 0.0176
+        "amount": 0.01
     }
 ]
