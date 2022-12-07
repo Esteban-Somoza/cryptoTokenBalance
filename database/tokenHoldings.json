@@ -28,5 +28,10 @@
         "token": "looksrare",
         "ticker": "LOOKS",
         "amount": 1000
+    },
+    {
+        "token": "weth",
+        "ticker": "WETH",
+        "amount": 0.01
     }
 ]

@@ -9,24 +9,76 @@
 
 .App {
     padding: 2em;
-    display: display;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 100vh;
+    align-items: center;
+    background-color: rgb(78, 78, 78);
+}
+
+.body {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
 }
 
 .title {
     font-size: 2em;
+    font-weight: 800;
+    margin: auto;
+    display: block ;
+    padding: 1em;
+    border-radius: 2em;
+    color: rgba(0, 195, 255);
+    box-shadow: 0px 0px 20px 10px wheat;
+}
+
+.total {
+    font-weight: 800;
 }
 
 .information{
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     padding: 2em;
+    margin: auto;
+    background-color: rgb(0, 195, 255);
+    border-radius: 2em;
+    /* box-shadow: 0px 0px 10px 10px rgba(255, 0, 0, 1); */
+    /* box-shadow: 0px 0px 0px 20px rgba(255, 0, 0, .33); */
+    box-shadow: 0px 0px 20px 10px rgba(0, 195, 255, .66);
+}
+
+.totalValue{
+    background-color: wheat;
+    border-radius: 2em;
+    padding: 2em;
+    /* margin: 1em 8em; */
+    margin: auto;
+    width: 250px;
 }
 
 .token{
     display: flex;
     margin: 1em;
-    gap: .5em
+    gap: 1em;
+    align-items: flex-end;
 }
 
 .ticker {
-    
+    font-weight: 800;
+}
+
+.data {
+    display: flex;
+    gap: .2em;
+}
+
+.data h5 {
+    color: rgb(116, 116, 116);
+}
+
+.value {
+    font-weight: 600;
 }
