@@ -31,7 +31,7 @@ function App() {
       </div>
       <div className='body'>
         <div className='information'>
-          {tokens && tokens.map((token, i) => <TokenBalance key={i} token={token.ticker} value={token.value} price={token.usd} />)}
+          {tokens && tokens.map((token, i) => <TokenBalance key={i} token={token.ticker} value={token.value} price={token.usd} totalValue={totalValue}/>)}
         </div>
       </div>
     </div>

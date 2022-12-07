@@ -3,7 +3,7 @@ import apiCall from './api/coingecko.js'
 
 export default function TokenBalance(props) {
     const [price, setPrice] = useState(0)
-    
+
     // console.log(props);
 
     return (
@@ -16,6 +16,10 @@ export default function TokenBalance(props) {
             <div className='data'>
                 <h5>Token Price:</h5>
                 <h4>${props.price.toFixed(2)}</h4>
+            </div>
+            <div className='data'>
+                <h5>Portion of portfolio:</h5>
+                <h4 className='value'>{(props.value/props.totalValue).toFixed(2)}%</h4>
             </div>
         </div>
     )
