@@ -10,12 +10,12 @@ export default function TokenBalance(props) {
         <div className='token'>
             <h3 className='ticker'>{props.token}:</h3>
             <div className='data'>
-                <h5>Token Price:</h5>
-                <h4>${props.price}</h4>
-            </div>
-            <div className='data'>
                 <h5>Value held:</h5>
                 <h4 className='value'>${props.value}</h4>
+            </div>
+            <div className='data'>
+                <h5>Token Price:</h5>
+                <h4>${props.price.toFixed(2)}</h4>
             </div>
         </div>
     )
