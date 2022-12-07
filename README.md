@@ -1,6 +1,7 @@
-Welcome to the dashboard to track all your holding values
+Welcome to the dashboard to track all your holding values.
 
 to configure this v1 you need to make a tokenHoldings.json file inside the database folder and add the token ids and the values for it
+You will also need to have node.js installed in your computer and install dependencies through the command "npm i" 
 
 --------------------------------
 
