@@ -12,23 +12,31 @@ import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
 function App() {
   const [tokens, setTokens] = useState([])
   const [totalValue, setTotalValue] = useState(0)
-  const [timeStamp, setTimeStamp] = useState('')
+  const [seconds, setSeconds] = useState(0)
 
   function refresh() {
     window.location.reload();
   }
 
+  setTimeout(() => {
+    refresh()
+  }, 9000);
+
+  setTimeout(() => {
+      let secs = seconds + 1
+      return setSeconds(secs)
+  }, 1000);
+
+  
   useEffect(() => {
     async function apiCall() {
-      let timeStamp = new Date().toLocaleTimeString();
-      setTimeStamp(timeStamp);
-
       let data = await coingeckoApiCall(tokenHoldings);
       let orderedData = sortByValue(data);
       
       let totalValue = data.map(token => Number(token.value)).reduce((acc, token) => acc + token, 0);
       setTotalValue(totalValue.toFixed(2));
-
+      
+      console.log(orderedData);
       return setTokens(orderedData);
     }
     apiCall()
@@ -44,8 +52,10 @@ function App() {
           totalValue && <h3>${totalValue}</h3>
         }
         <br />
-        <h5> última actualización: </h5>
-        <h5 className='timestamp'>{timeStamp && timeStamp}</h5>
+        <h5> last update: </h5>
+        <h5 className='timestamp'>
+          {seconds != 0 && seconds == 1 ? `${seconds} second ago` : `${seconds} seconds ago`}
+        </h5>
       </div>
       <div className='body'>
         <div className='information'>
@@ -53,7 +63,6 @@ function App() {
           <TokenBalance key={i} token={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} />)}
         </div>
       </div>
-      {/* <button><FontAwesomeIcon icon="fa-solid fa-rotate-right" /></button> */}
       <button className='refresh' onClick={refresh}>
         <FontAwesomeIcon icon={faRotateRight} className="icon" />
         </button>
