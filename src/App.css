@@ -99,3 +99,8 @@
     width: 2em;
     height: 2em;
 }
+
+.timestamp {
+    font-weight: bold;
+    margin-top: .25em;
+}

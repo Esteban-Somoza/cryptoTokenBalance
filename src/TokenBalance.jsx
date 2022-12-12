@@ -19,7 +19,7 @@ export default function TokenBalance(props) {
             </div>
             <div className='data'>
                 <h5>Token Price:</h5>
-                <h4>${props.price.toFixed(2)}</h4>
+                <h4>${props.price.toFixed(3)}</h4>
             </div>
         </div>
     )
