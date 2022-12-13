@@ -6,6 +6,11 @@
     font-weight: 400;
 }
 
+.App {
+
+    background-color: rgb(78, 78, 78);
+}
+
 
 .mainBody {
     padding: 2em;
@@ -14,7 +19,6 @@
     text-align: center;
     height: 100vh;
     align-items: center;
-    background-color: rgb(78, 78, 78);
 }
 
 .body {
@@ -112,3 +116,30 @@
     height: 100vh;
     width: 100%;
 }
+
+.loading {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.load {
+    /* font-size: 300; */
+    color: white;
+    height: 4em;
+    animation-name: rotate;
+    animation-duration: 0.7s;
+    animation-iteration-count: 10;
+
+}
+
+@keyframes rotate {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

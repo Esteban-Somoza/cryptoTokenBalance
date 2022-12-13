@@ -13,6 +13,7 @@ import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
   const [tokens, setTokens] = useState([])
+  const [loading, setLoading] = useState(true)
   const [totalValue, setTotalValue] = useState(0)
   const [seconds, setSeconds] = useState(0)
   const [newToken, setNewToken] = useState(true)
@@ -52,8 +53,11 @@ function App() {
 
       let totalValue = data.map(token => Number(token.value)).reduce((acc, token) => acc + token, 0);
       setTotalValue(totalValue.toFixed(2));
+      
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000);
 
-      console.log(orderedData);
       return setTokens(orderedData);
     }
     apiCall()
@@ -62,35 +66,37 @@ function App() {
 
   return (
     <div className="App">
-      <div className='mainBody'>
-        <h1 className='title'>Token holdings:</h1>
-        <div className='totalValue'>
-          <h2 className='total'>Total value held:</h2>
-          {
-            totalValue && <h3>${totalValue}</h3>
-          }
-          <br />
-          <h5> last update: </h5>
-          <h5 className='timestamp'>
-            {seconds != 0 && seconds == 1 ? `${seconds} second ago` : `${seconds} seconds ago`}
-          </h5>
-        </div>
-        <div className='body'>
-          <div className='information'>
-            {tokens && tokens.map((token, i) => {
-              // return <form key={i} onSubmit={editToken}>
-              return <form key={i} >
-                <TokenBalance token={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} />
-                {/* <button>edit</button> */}
-              </form>
-            })
+      {loading ? <div className='loading'><FontAwesomeIcon icon={faRotateRight} className="load" /></div> :
+        <div className='mainBody'>
+          <h1 className='title'>Token holdings:</h1>
+          <div className='totalValue'>
+            <h2 className='total'>Total value held:</h2>
+            {
+              totalValue && <h3>${totalValue}</h3>
             }
+            <br />
+            <h5> last update: </h5>
+            <h5 className='timestamp'>
+              {seconds != 0 && seconds == 1 ? `${seconds} second ago` : `${seconds} seconds ago`}
+            </h5>
           </div>
+          <div className='body'>
+            <div className='information'>
+              {tokens && tokens.map((token, i) => {
+                // return <form key={i} onSubmit={editToken}>
+                return <form key={i} >
+                  <TokenBalance token={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} />
+                  {/* <button>edit</button> */}
+                </form>
+              })
+              }
+            </div>
+          </div>
+          <button className='refresh' onClick={refresh}>
+            <FontAwesomeIcon icon={faRotateRight} className="icon" />
+          </button>
         </div>
-        <button className='refresh' onClick={refresh}>
-          <FontAwesomeIcon icon={faRotateRight} className="icon" />
-        </button>
-      </div>
+      }
       {/* <AddToken newT={newToken} data={tokenData} /> */}
       {/* needs to adapt to new or false */}
     </div>
