@@ -7,7 +7,7 @@
 }
 
 
-.App {
+.mainBody {
     padding: 2em;
     display: flex;
     flex-wrap: wrap;
@@ -103,4 +103,12 @@
 .timestamp {
     font-weight: bold;
     margin-top: .25em;
+}
+
+.newToken{
+    /* position: absolute; */
+    top: -100vh;
+    background-color: red;
+    height: 100vh;
+    width: 100%;
 }

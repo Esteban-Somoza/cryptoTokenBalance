@@ -3,9 +3,7 @@ import apiCall from './api/coingecko.js'
 
 export default function TokenBalance(props) {
     const [price, setPrice] = useState(0)
-
     // console.log(props);
-
     return (
         <div className='token'>
             <h3 className='ticker'>{props.token}:</h3>
