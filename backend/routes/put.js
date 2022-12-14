@@ -3,6 +3,6 @@ const router = Router()
 
 let editToken = require('../api/editToken')
 
-router.post('/edit', editToken)
+router.put('/edit', editToken)
 
 module.exports = router

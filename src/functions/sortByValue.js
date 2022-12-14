@@ -1,6 +1,11 @@
 let sortByValue = function (array) {
-    let sorted = array.sort((a, b) => a.value - b.value).reverse()
-    return sorted
+    try {
+        let sorted = array.sort((a, b) => a.value - b.value
+        ).reverse()
+        return sorted
+    } catch (error) {
+
+    }
 }
 
 export default sortByValue

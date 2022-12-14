@@ -33,10 +33,5 @@
     "token": "weth",
     "ticker": "WETH",
     "amount": 0.01
-  },
-  {
-    "token": "asdfasd",
-    "ticker": "ASD",
-    "amount": 123
   }
 ]

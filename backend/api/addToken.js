@@ -5,12 +5,8 @@ const { resolve, } = require('path')
 
 const addToken = async (req, res) => {
     try {
-        // let file = resolve(__dirname, '../database', 'tokenHoldings.json');
         let dataBase = require('../database/tokenHoldings.json')
-        // console.log(f);
-        // return res.send('a')
-        // let info = readFileSync(file);
-        // let dataBase = JSON.parse(info);
+
         let newToken = {
             token: req.body.token,
             ticker: req.body.ticker,
@@ -19,13 +15,8 @@ const addToken = async (req, res) => {
         dataBase.push(newToken)
         let save = JSON.stringify(dataBase, null, 2);
 
-        console.log(dataBase);
-
-        // fs.writeFileSync('./hola.json', save);
         writeFileSync('./database/tokenHoldings.json', save);
-        console.log("ok");
-        return res.send('a')
-        return
+        return res.send('token added').status(200)
         // res.send({ db }).status(200)
     } catch (error) {
         res.send(error)
