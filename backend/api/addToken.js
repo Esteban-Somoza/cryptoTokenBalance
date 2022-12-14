@@ -1,29 +1,39 @@
-let db = require('../database/tokenHoldings.json')
+// let db = require('../database/tokenHoldings.json')
 const { readFileSync, writeFileSync, unlinkSync, unlink } = require('fs')
 const { resolve, } = require('path')
 
 
-const getTokens = async (req, res) => {
+const addToken = async (req, res) => {
     try {
-        let file = resolve(__dirname, '../data', 'products.json');
-        let info = readFileSync(file);
-        let products = JSON.parse(info);
-        
+        // let file = resolve(__dirname, '../database', 'tokenHoldings.json');
+        let dataBase = require('../database/tokenHoldings.json')
+        // console.log(f);
+        // return res.send('a')
+        // let info = readFileSync(file);
+        // let dataBase = JSON.parse(info);
         let newToken = {
-            token: req.params.token,
-            ticker: req.params.ticker,
-            amount: req.params.amount
+            token: req.body.token,
+            ticker: req.body.ticker,
+            amount: req.body.amount
         }
-        let newDb = db.push(newToken)
+        dataBase.push(newToken)
+        let save = JSON.stringify(dataBase, null, 2);
 
-        return 
+        console.log(dataBase);
+
+        // fs.writeFileSync('./hola.json', save);
+        writeFileSync('./database/tokenHoldings.json', save);
+        console.log("ok");
+        return res.send('a')
+        return
         // res.send({ db }).status(200)
     } catch (error) {
+        res.send(error)
         return res.status(500).json(error)
     }
 }
 
-module.exports = getTokens
+module.exports = addToken
 
 // process: async function (req, res) {
 

@@ -1,37 +1,42 @@
 [
-    {
-        "token": "ronin",
-        "ticker": "RON",
-        "amount": 5000
-    },
-    {
-        "token": "ethereum",
-        "ticker": "ETH",
-        "amount": 0.2
-    },
-    {
-        "token": "bitcoin",
-        "ticker": "BTC",
-        "amount": 0.016
-    },
-    {
-        "token": "covalent",
-        "ticker": "CQT",
-        "amount": 1900
-    },
-    {
-        "token": "matic-network",
-        "ticker": "MATIC",
-        "amount": 250
-    },
-    {
-        "token": "looksrare",
-        "ticker": "LOOKS",
-        "amount": 1000
-    },
-    {
-        "token": "weth",
-        "ticker": "WETH",
-        "amount": 0.01
-    }
+  {
+    "token": "ronin",
+    "ticker": "RON",
+    "amount": 5000
+  },
+  {
+    "token": "ethereum",
+    "ticker": "ETH",
+    "amount": 0.2
+  },
+  {
+    "token": "bitcoin",
+    "ticker": "BTC",
+    "amount": 0.016
+  },
+  {
+    "token": "covalent",
+    "ticker": "CQT",
+    "amount": 1900
+  },
+  {
+    "token": "matic-network",
+    "ticker": "MATIC",
+    "amount": 250
+  },
+  {
+    "token": "looksrare",
+    "ticker": "LOOKS",
+    "amount": 1000
+  },
+  {
+    "token": "weth",
+    "ticker": "WETH",
+    "amount": 0.01
+  },
+  {
+    "token": "asdfasd",
+    "ticker": "ASD",
+    "amount": 123
+  }
 ]

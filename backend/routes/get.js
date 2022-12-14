@@ -4,6 +4,6 @@ const router = Router()
 
 let getTokens = require('../api/getTokens')
 
-router.get('/', getTokens)
+router.get('/get', getTokens)
 
 module.exports = router
