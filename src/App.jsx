@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import TokenBalance from './TokenBalance'
 import AddToken from './AddToken'
-import tokenHoldings from '../database/readTokenHoldings.js'
+import getDataBase from "./api/getDataBase";
 import coingeckoApiCall from './api/coingecko'
 import sortByValue from './functions/sortByValue';
 import findToken from "../database/findToken";
@@ -48,7 +48,9 @@ function App() {
 
   useEffect(() => {
     async function apiCall() {
-      let data = await coingeckoApiCall(tokenHoldings);
+      let dataBase = await getDataBase()
+      console.log(dataBase.data.db);
+      let data = await coingeckoApiCall(dataBase.data.db);
       let orderedData = sortByValue(data);
 
       let totalValue = data.map(token => Number(token.value)).reduce((acc, token) => acc + token, 0);

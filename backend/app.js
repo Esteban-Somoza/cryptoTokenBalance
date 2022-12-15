@@ -1,9 +1,12 @@
 var express = require('express');
 var app = express();
+const cors = require('cors');
 
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors())
+
 
 app.listen(3000, () => {
   console.log("El servidor está inicializado en el puerto 3000");

@@ -13,5 +13,5 @@ let call = async (data) => {
     }
 }
 
-
+0
 export default call
