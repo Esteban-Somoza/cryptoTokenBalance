@@ -24,7 +24,8 @@ function App() {
   }
 
   // function addToken(tok) {
-  //   // tok.preventDefault()
+  //   tok.preventDefault()
+  //   console.log(tok);
   //   // let token = tok.target.firstChild.firstChild.innerHTML.slice(0, -1);
   // }
 
@@ -99,7 +100,7 @@ function App() {
           </button>
         </div>
       }
-      {/* <AddToken newT={newToken} data={tokenData} /> */}
+      <AddToken newTok={newToken} data={tokenData} />
       {/* needs to adapt to new or false */}
     </div>
   )

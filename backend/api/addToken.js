@@ -5,6 +5,7 @@ const { resolve, } = require('path')
 
 const addToken = async (req, res) => {
     try {
+        // console.log(req.body);
         let dataBase = require('../database/tokenHoldings.json')
 
         let newToken = {
@@ -12,6 +13,7 @@ const addToken = async (req, res) => {
             ticker: req.body.ticker,
             amount: req.body.amount
         }
+        
         dataBase.push(newToken)
         let save = JSON.stringify(dataBase, null, 2);
 

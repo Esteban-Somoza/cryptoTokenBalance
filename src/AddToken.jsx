@@ -1,32 +1,37 @@
 import React, { useState, useRef } from 'react'
-import tokenHoldings from '../database/readTokenHoldings.js'
+// import tokenHoldings from '../database/readTokenHoldings.js'
+import postDataBase from "./api/postDataBase";
 // import editDatabase from './functions/editDatabase';
 
 
-export default function AddToken({ newT, data }) {
+export default function AddToken({ newTok, data }) {
     let token = useRef()
     let ticker = useRef()
     let amount = useRef()
 
     function handleSubmit(form) {
         form.preventDefault()
-        let database = tokenHoldings
+        let tokenData = token.current.value
+        let tickerData = ticker.current.value
+        let amountData = amount.current.value
 
-        // console.log(newT);
+        // let database = tokenHoldings
+        // console.log(tokenData, tickerData, amountData);
+        // console.log(newTok);
         // console.log(database);
 
         let tokenToDatabase = {
-            token: token.current.value,
-            ticker: ticker.current.value,
-            amount: amount.current.value
+            token: tokenData,
+            ticker: tickerData,
+            amount: amountData
         }
         
-        if( newT === false){
-            console.log(tokenToDatabase);
-            database.push(tokenToDatabase)
-        }
+        // if( newTok === false){
+        //     console.log(tokenToDatabase);
+        //     database.push(tokenToDatabase)
+        // }
 
-        // return editDatabase(database)
+        postDataBase(tokenToDatabase)
     }
     // console.log(props.data.token);
     return (
@@ -41,7 +46,7 @@ export default function AddToken({ newT, data }) {
                 <input type="text" value={data.ticker == undefined ? undefined : data.ticker} ref={ticker} />
                 <br />
                 <label htmlFor="text" >amount</label>
-                <input type="number" value={data.amount == undefined ? 0 : data.amount} ref={amount} />
+                <input type="number" value={data.amount == undefined ? undefined : data.amount} ref={amount} />
                 <br />
                 <button>Add Token</button>
             </form>
