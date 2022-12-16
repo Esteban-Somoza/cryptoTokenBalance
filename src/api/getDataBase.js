@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export default function getDataBase() {
-    let dataBase = axios.get('http://localhost:3000/get')
-    console.log(dataBase);
+export default async function getDataBase() {
+    let dataBase = await axios.get('http://localhost:3000/get')
     return dataBase;
 }

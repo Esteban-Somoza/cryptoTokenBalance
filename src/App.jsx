@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
 import './App.css'
 import TokenBalance from './TokenBalance'
 import AddToken from './AddToken'
@@ -29,17 +29,19 @@ function App() {
   //   // let token = tok.target.firstChild.firstChild.innerHTML.slice(0, -1);
   // }
 
-  // function editToken(edit) {
-  //   edit.preventDefault()
-  //   let token = edit.target.firstChild.firstChild.innerHTML.slice(0, -1);
-  //   let tokenToEdit = findToken(tokenHoldings, token)
-  //   setNewToken(false)
-  //   return setTokenData(tokenToEdit)
-  // }
+  function editToken(form) {
+    form.preventDefault()
+    console.log(form);
+    console.log(form.target.form.firstChild.firstChild.innerHTML.slice(0, -1));
+    // let token = edit.target.firstChild.firstChild.innerHTML.slice(0, -1);
+    // let tokenToEdit = findToken(tokenHoldings, token)
+    // setNewToken(false)
+    // return setTokenData(tokenToEdit)
+  }
 
-  setTimeout(() => {
-    refresh()
-  }, 60000);
+  // setTimeout(() => {
+  //   refresh()
+  // }, 60000);
 
   setTimeout(() => {
     let secs = seconds + 1
@@ -50,7 +52,6 @@ function App() {
   useEffect(() => {
     async function apiCall() {
       let dataBase = await getDataBase()
-      console.log(dataBase.data.db);
       let data = await coingeckoApiCall(dataBase.data.db);
       let orderedData = sortByValue(data);
 
@@ -65,7 +66,6 @@ function App() {
     }
     apiCall()
   }, [])
-
 
   return (
     <div className="App">
@@ -86,13 +86,14 @@ function App() {
           <div className='body'>
             <div className='information'>
               {tokens && tokens.map((token, i) => {
-                // return <form key={i} onSubmit={editToken}>
+                // return <form key={i} onClick={editToken}>
                 return <form key={i} >
-                  <TokenBalance token={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} />
+                  <TokenBalance token={token.token} ticker={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} />
                   {/* <button>edit</button> */}
                 </form>
               })
               }
+              <button>Add Token</button>
             </div>
           </div>
           <button className='refresh' onClick={refresh}>
