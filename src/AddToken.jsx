@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import postDataBase from "./api/postDataBase";
 
-export default function AddToken({ newTok, data }) {
+export default function AddToken() {
     let token = useRef()
     let ticker = useRef()
     let amount = useRef()

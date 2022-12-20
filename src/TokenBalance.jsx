@@ -8,9 +8,9 @@ export default function TokenBalance(props) {
     // const [tokenData, setTokenData] = useState({})
     const { tokenData, setTokenData } = useContext(tokenDataContext)
 
-    function editToken(btn) {
-        btn.preventDefault()
-        console.log(props.token);
+    function editToken(form) {
+        form.preventDefault()
+        // console.log(props.token);
         return setTokenData(props)
     }
     // console.log(props);
@@ -31,7 +31,6 @@ export default function TokenBalance(props) {
                 <h4>${props.price.toFixed(3)}</h4>
             </div>
             <button onClick={editToken}>Edit Token</button>
-            {/* <EditToken data={tokenData}/> */}
         </div>
     )
 }

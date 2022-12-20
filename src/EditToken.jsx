@@ -1,14 +1,13 @@
 import React, { useContext, useState, useRef } from 'react'
 import { tokenDataContext } from "./context/TokenEditData";
-import postDataBase from "./api/postDataBase";
+import editDataBase from "./api/editDataBase";
 
-export default function EditToken({data}) {
+export default function EditToken() {
     const { tokenData, setTokenData } = useContext(tokenDataContext)
     let token = useRef()
     let ticker = useRef()
     let amount = useRef()
 
-    console.log(tokenData);
 
     function handleSubmit(form) {
         form.preventDefault()
@@ -22,7 +21,7 @@ export default function EditToken({data}) {
             amount: amountData
         }
 
-        postDataBase(tokenToDatabase)
+        editDataBase(tokenToDatabase)
         return window.location.reload();
     }
 
@@ -40,7 +39,7 @@ export default function EditToken({data}) {
                 <label htmlFor="text" >amount</label>
                 <input type="number" value={tokenData.amount == undefined ? undefined : tokenData.amount} ref={amount} />
                 <br />
-                <button>Add Token</button>
+                <button>Edit Token</button>
             </form>
         </div>
     )
