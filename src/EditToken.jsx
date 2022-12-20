@@ -27,7 +27,7 @@ export default function EditToken() {
 
     return (
         <div className='newToken'>
-            <h2 className='total'>New Token:</h2>
+            <h2 className='total'>Edit Token:</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="text">Token Name</label>
                 <input type="text" value={tokenData.token == undefined ? undefined : tokenData.token} ref={token} />

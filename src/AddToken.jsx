@@ -37,6 +37,7 @@ export default function AddToken() {
                 <input type="number" ref={amount} />
                 <br />
                 <button>Add Token</button>
+                <button className='cancel'>X</button>
             </form>
         </div>
     )

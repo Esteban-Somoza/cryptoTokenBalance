@@ -73,7 +73,7 @@ function App() {
             <div className='information'>
               {tokens && tokens.map((token, i) => {
                 return <form key={i} >
-                  <TokenBalance token={token.token} ticker={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} />
+                  <TokenBalance token={token.token} ticker={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} amount={token.amount}/>
                 </form>
               })
               }
@@ -87,7 +87,6 @@ function App() {
       }
       <AddToken />
       { tokenData && <EditToken/>}
-      
     </div>
   )
 }

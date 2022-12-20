@@ -110,7 +110,7 @@
 }
 
 .newToken{
-    /* position: absolute; */
+    position: absolute;
     top: -100vh;
     background-color: red;
     height: 100vh;

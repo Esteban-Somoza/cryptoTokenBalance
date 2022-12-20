@@ -1,15 +1,12 @@
 import React, { useState, useContext, useRef } from 'react'
-import EditToken from "./EditToken";
 import { tokenDataContext } from "./context/TokenEditData";
 
-import apiCall from './api/coingecko.js'
-
 export default function TokenBalance(props) {
-    // const [tokenData, setTokenData] = useState({})
     const { tokenData, setTokenData } = useContext(tokenDataContext)
 
     function editToken(form) {
         form.preventDefault()
+        console.log(props);
         // console.log(props.token);
         return setTokenData(props)
     }
