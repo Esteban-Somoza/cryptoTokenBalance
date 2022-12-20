@@ -1,10 +1,14 @@
-import React, { useState, useRef } from 'react'
+import React, { useContext, useState, useRef } from 'react'
+import { tokenDataContext } from "./context/TokenEditData";
 import postDataBase from "./api/postDataBase";
 
-export default function AddToken({ newTok, data }) {
+export default function EditToken({data}) {
+    const { tokenData, setTokenData } = useContext(tokenDataContext)
     let token = useRef()
     let ticker = useRef()
     let amount = useRef()
+
+    console.log(tokenData);
 
     function handleSubmit(form) {
         form.preventDefault()
@@ -27,14 +31,14 @@ export default function AddToken({ newTok, data }) {
             <h2 className='total'>New Token:</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="text">Token Name</label>
-                <input type="text" value={data.token == undefined ? undefined : data.token} ref={token} />
+                <input type="text" value={tokenData.token == undefined ? undefined : tokenData.token} ref={token} />
                 <h5>note: if the value doesnt appear, this input might not be compatible to coingecko</h5>
                 <br />
                 <label htmlFor="text">Token Ticker</label>
-                <input type="text" value={data.ticker == undefined ? undefined : data.ticker} ref={ticker} />
+                <input type="text" value={tokenData.ticker == undefined ? undefined : tokenData.ticker} ref={ticker} />
                 <br />
                 <label htmlFor="text" >amount</label>
-                <input type="number" value={data.amount == undefined ? undefined : data.amount} ref={amount} />
+                <input type="number" value={tokenData.amount == undefined ? undefined : tokenData.amount} ref={amount} />
                 <br />
                 <button>Add Token</button>
             </form>

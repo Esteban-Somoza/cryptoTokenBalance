@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
+import TokenData from "./context/TokenEditData";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <TokenData>
+      <App />
+    </TokenData>
   </React.StrictMode>
 )
