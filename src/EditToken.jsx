@@ -26,7 +26,7 @@ export default function EditToken() {
     }
 
     return (
-        <div className='newToken'>
+        <div className='tokenForm'>
             <h2 className='total'>Edit Token:</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="text">Token Name</label>

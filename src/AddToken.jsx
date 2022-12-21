@@ -1,7 +1,17 @@
 import React, { useState, useRef } from 'react'
 import postDataBase from "./api/postDataBase";
 
-export default function AddToken() {
+export default function AddToken({visibility, changeVisibility}) {
+    // const [isVisible, setIsVisible] = useState()
+    let classes = `${visibility} tokenForm`
+
+    function handleClick (e){
+        e.preventDefault();
+        // console.log(isVisible);
+        return changeVisibility()
+      }
+
+    // console.log(classes);
     let token = useRef()
     let ticker = useRef()
     let amount = useRef()
@@ -21,9 +31,9 @@ export default function AddToken() {
         postDataBase(tokenToDatabase)
         return window.location.reload();
     }
-    
+
     return (
-        <div className='newToken'>
+        <div className={classes}>
             <h2 className='total'>New Token:</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="text">Token Name</label>
@@ -37,7 +47,7 @@ export default function AddToken() {
                 <input type="number" ref={amount} />
                 <br />
                 <button>Add Token</button>
-                <button className='cancel'>X</button>
+                <button className='cancel' onClick={handleClick}>X</button>
             </form>
         </div>
     )

@@ -1,5 +1,8 @@
-import { useContext, useState, useEffect} from 'react'
+import { useContext, useState, useEffect, useRef} from 'react'
 import { tokenDataContext } from "./context/TokenEditData";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
 import './App.css'
 
@@ -9,31 +12,32 @@ import EditToken from './EditToken'
 import getDataBase from "./api/getDataBase";
 import coingeckoApiCall from './api/coingecko'
 import sortByValue from './functions/sortByValue';
-// import findToken from "../database/findToken";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
+function refresh() {
+  window.location.reload();
+}
 
 function App() {
   const { tokenData, setTokenData } = useContext(tokenDataContext)
+  const [isVisible, setIsVisible] = useState(false)
   const [tokens, setTokens] = useState([])
   const [loading, setLoading] = useState(true)
   const [totalValue, setTotalValue] = useState(0)
   const [seconds, setSeconds] = useState(0)
-
-  function refresh() {
-    window.location.reload();
-  }
-
+  
   setTimeout(() => {
     refresh()
   }, 120000);
-
+  
   setTimeout(() => {
     let secs = seconds + 1
     return setSeconds(secs)
   }, 1000);
+  
+  function changeVisibility (){
+    return setIsVisible(!isVisible)
+  }
 
   useEffect(() => {
     async function apiCall() {
@@ -53,8 +57,9 @@ function App() {
     apiCall()
   }, [])
 
+
   return (
-    <div className="App">
+    <div className="App" >
       {loading ? <div className='loading'><FontAwesomeIcon icon={faRotateRight} className="load" /></div> :
         <div className='mainBody'>
           <h1 className='title'>Token holdings:</h1>
@@ -77,7 +82,7 @@ function App() {
                 </form>
               })
               }
-              <button>Add Token</button>
+              <button onClick={changeVisibility}>Add Token</button>
             </div>
           </div>
           <button className='refresh' onClick={refresh}>
@@ -85,7 +90,7 @@ function App() {
           </button>
         </div>
       }
-      <AddToken />
+      <AddToken visibility={isVisible} changeVisibility={changeVisibility} />
       { tokenData && <EditToken/>}
     </div>
   )
