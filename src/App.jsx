@@ -7,7 +7,7 @@ import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
 import './App.css'
 
 import TokenBalance from './TokenBalance'
-import AddToken from './AddToken'
+import TokenForm from './TokenForm'
 import EditToken from './EditToken'
 import getDataBase from "./api/getDataBase";
 import coingeckoApiCall from './api/coingecko'
@@ -20,11 +20,15 @@ function refresh() {
 
 function App() {
   const { tokenData, setTokenData } = useContext(tokenDataContext)
+  const [blur, setBlur] = useState('noBlur')
   const [isVisible, setIsVisible] = useState(false)
+  const [isNewToken, setIsNewToken] = useState(true)
   const [tokens, setTokens] = useState([])
   const [loading, setLoading] = useState(true)
   const [totalValue, setTotalValue] = useState(0)
   const [seconds, setSeconds] = useState(0)
+
+  const mainBody =[`${blur} mainBody`]
   
   setTimeout(() => {
     refresh()
@@ -34,9 +38,22 @@ function App() {
     let secs = seconds + 1
     return setSeconds(secs)
   }, 1000);
+
+  function changeVisibility(){
+    setBlur(blur == 'noBlur' ? 'blur' : 'noBlur');
+    return setIsVisible(!isVisible);
+  }
   
-  function changeVisibility (){
-    return setIsVisible(!isVisible)
+  function addToken (){
+    changeVisibility()
+    setTokenData({})
+    document.getElementById('form').reset();
+    return setIsNewToken(true);
+  }
+  
+  function editToken (){
+    changeVisibility()
+    return setIsNewToken(false);
   }
 
   useEffect(() => {
@@ -59,9 +76,9 @@ function App() {
 
 
   return (
-    <div className="App" >
+    <div className='App'>
       {loading ? <div className='loading'><FontAwesomeIcon icon={faRotateRight} className="load" /></div> :
-        <div className='mainBody'>
+        <div className={mainBody}>
           <h1 className='title'>Token holdings:</h1>
           <div className='totalValue'>
             <h2 className='total'>Total value held:</h2>
@@ -78,11 +95,11 @@ function App() {
             <div className='information'>
               {tokens && tokens.map((token, i) => {
                 return <form key={i} >
-                  <TokenBalance token={token.token} ticker={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} amount={token.amount}/>
+                  <TokenBalance token={token.token} ticker={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} amount={token.amount} handleClick={editToken}/>
                 </form>
               })
               }
-              <button onClick={changeVisibility}>Add Token</button>
+              <button onClick={addToken}>Add Token</button>
             </div>
           </div>
           <button className='refresh' onClick={refresh}>
@@ -90,8 +107,8 @@ function App() {
           </button>
         </div>
       }
-      <AddToken visibility={isVisible} changeVisibility={changeVisibility} />
-      { tokenData && <EditToken/>}
+      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken}/>
+      {/* { tokenData && <EditToken/>} */}
     </div>
   )
 }

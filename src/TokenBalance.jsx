@@ -6,8 +6,7 @@ export default function TokenBalance(props) {
 
     function editToken(form) {
         form.preventDefault()
-        console.log(props);
-        // console.log(props.token);
+        props.handleClick()
         return setTokenData(props)
     }
     // console.log(props);

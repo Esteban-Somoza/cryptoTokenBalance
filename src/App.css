@@ -11,6 +11,10 @@
     background-color: rgb(78, 78, 78);
 }
 
+.blur{
+    filter: blur(4px);
+}
+
 
 .mainBody {
     padding: 2em;
@@ -32,7 +36,7 @@
     font-size: 2em;
     font-weight: 800;
     margin: auto;
-    display: block ;
+    display: block;
     padding: 1em;
     border-radius: 2em;
     color: rgba(0, 195, 255);
@@ -43,7 +47,7 @@
     font-weight: 800;
 }
 
-.information{
+.information {
     /* border: 1px solid blue; */
     padding: 2em;
     margin: auto;
@@ -54,7 +58,7 @@
     box-shadow: 0px 0px 20px 10px rgba(0, 195, 255, .66);
 }
 
-.totalValue{
+.totalValue {
     background-color: wheat;
     border-radius: 2em;
     padding: 2em;
@@ -63,7 +67,7 @@
     width: 250px;
 }
 
-.token{
+.token {
     display: flex;
     margin: 1em;
     gap: 1em;
@@ -109,24 +113,6 @@
     margin-top: .25em;
 }
 
-.tokenForm{
-    position: absolute;
-    /* display: none; */
-    top: 50vh;
-    right: 50vh;
-    background-color: red;
-    /* height: 100vh; */
-    /* width: 100%; */
-    padding: 2em;
-}
-
-.true{
-    display: block;
-}
-.true{
-    display: none;
-}
-
 .loading {
     width: 100vw;
     height: 100vh;
@@ -147,9 +133,10 @@
 
 @keyframes rotate {
     0% {
-      transform: rotate(0);
+        transform: rotate(0);
     }
+
     100% {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
+}

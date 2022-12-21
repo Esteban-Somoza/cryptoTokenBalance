@@ -1,17 +1,19 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef, useContext } from 'react'
+import { tokenDataContext } from "./context/TokenEditData";
 import postDataBase from "./api/postDataBase";
+import editDataBase from "./api/editDataBase";
+import './form.css'
 
-export default function AddToken({visibility, changeVisibility}) {
-    // const [isVisible, setIsVisible] = useState()
+export default function TokenForm({ visibility, changeVisibility, isNewToken }) {
+    const { tokenData, setTokenData } = useContext(tokenDataContext)
     let classes = `${visibility} tokenForm`
-
-    function handleClick (e){
+    function cancel(e) {
         e.preventDefault();
-        // console.log(isVisible);
+        document.getElementById('form').reset();
+        setTokenData({})
         return changeVisibility()
-      }
+    }
 
-    // console.log(classes);
     let token = useRef()
     let ticker = useRef()
     let amount = useRef()
@@ -28,26 +30,29 @@ export default function AddToken({visibility, changeVisibility}) {
             amount: amountData
         }
 
-        postDataBase(tokenToDatabase)
+        isNewToken ? postDataBase(tokenToDatabase) : editDataBase(tokenToDatabase)
         return window.location.reload();
     }
 
     return (
         <div className={classes}>
-            <h2 className='total'>New Token:</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id='form'>
+                <h2 className='total'>{isNewToken ? 'New Token:' : 'Edit Token:'}</h2>
                 <label htmlFor="text">Token Name</label>
-                <input type="text" ref={token} />
+                <br />
+                <input type="text" ref={token} value={isNewToken ? undefined : tokenData.token}/>
                 <h5>note: if the value doesnt appear, this input might not be compatible to coingecko</h5>
                 <br />
                 <label htmlFor="text">Token Ticker</label>
-                <input type="text" ref={ticker} />
+                <br />
+                <input type="text" ref={ticker} value={isNewToken ? undefined : tokenData.ticker}/>
                 <br />
                 <label htmlFor="text" >amount</label>
-                <input type="number" ref={amount} />
+                <br />
+                <input type="number" ref={amount} value={isNewToken ? undefined : tokenData.amount}/>
                 <br />
                 <button>Add Token</button>
-                <button className='cancel' onClick={handleClick}>X</button>
+                <button className='cancel' onClick={cancel}>X</button>
             </form>
         </div>
     )
