@@ -37,21 +37,21 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
     return (
         <div className={classes}>
             <form onSubmit={handleSubmit} id='form'>
-                <h2 className='total'>{isNewToken ? 'New Token:' : 'Edit Token:'}</h2>
+                <h2 className='total'>{isNewToken ? 'Add Token:' : 'Edit Token:'}</h2>
                 <label htmlFor="text">Token Name</label>
                 <br />
-                <input type="text" ref={token} value={isNewToken ? undefined : tokenData.token}/>
+                <input type="text" ref={token} defaultValue={isNewToken ? undefined : tokenData.token}/>
                 <h5>note: if the value doesnt appear, this input might not be compatible to coingecko</h5>
                 <br />
                 <label htmlFor="text">Token Ticker</label>
                 <br />
-                <input type="text" ref={ticker} value={isNewToken ? undefined : tokenData.ticker}/>
+                <input type="text" ref={ticker} defaultValue={isNewToken ? undefined : tokenData.ticker}/>
                 <br />
                 <label htmlFor="text" >amount</label>
                 <br />
-                <input type="number" ref={amount} value={isNewToken ? undefined : tokenData.amount}/>
+                <input type="number" ref={amount} defaultValue={isNewToken ? undefined : tokenData.amount}/>
                 <br />
-                <button>Add Token</button>
+                <button>{isNewToken ? 'New Token' : 'Edit Token'}</button>
                 <button className='cancel' onClick={cancel}>X</button>
             </form>
         </div>

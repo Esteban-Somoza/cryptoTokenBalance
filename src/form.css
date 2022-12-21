@@ -36,10 +36,6 @@
     border-radius: 1em;
 }
 
-.true {
-    /* display: block; */
-}
-
 .false {
     display: none;
 }

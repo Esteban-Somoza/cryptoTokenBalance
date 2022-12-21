@@ -108,7 +108,6 @@ function App() {
         </div>
       }
       <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken}/>
-      {/* { tokenData && <EditToken/>} */}
     </div>
   )
 }
