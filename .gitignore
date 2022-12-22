@@ -25,6 +25,7 @@ dist-ssr
 
 tokenHoldings.json
 tokbackup.json
+tok.json
 tokens.bat
 apis.bat
 todo.txt

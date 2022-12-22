@@ -7,3 +7,4 @@ export default async function postDataBase(body) {
         amount: parseInt(body.amount)
     })
 }
+

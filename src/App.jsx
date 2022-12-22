@@ -1,60 +1,32 @@
-import { useContext, useState, useEffect, useRef} from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { tokenDataContext } from "./context/TokenEditData";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
+import refresh from "./functions/refresh";
+
 import './App.css'
 
 import TokenBalance from './TokenBalance'
 import TokenForm from './TokenForm'
-import EditToken from './EditToken'
 import getDataBase from "./api/getDataBase";
 import coingeckoApiCall from './api/coingecko'
 import sortByValue from './functions/sortByValue';
 
 
-function refresh() {
-  window.location.reload();
-}
-
 function App() {
   const { tokenData, setTokenData } = useContext(tokenDataContext)
   const [blur, setBlur] = useState('noBlur')
   const [isVisible, setIsVisible] = useState(false)
+  const [deleteMenuVisible, setDeleteMenuVisible] = useState(false)
   const [isNewToken, setIsNewToken] = useState(true)
   const [tokens, setTokens] = useState([])
   const [loading, setLoading] = useState(true)
   const [totalValue, setTotalValue] = useState(0)
   const [seconds, setSeconds] = useState(0)
 
-  const mainBody =[`${blur} mainBody`]
-  
-  setTimeout(() => {
-    refresh()
-  }, 120000);
-  
-  setTimeout(() => {
-    let secs = seconds + 1
-    return setSeconds(secs)
-  }, 1000);
-
-  function changeVisibility(){
-    setBlur(blur == 'noBlur' ? 'blur' : 'noBlur');
-    return setIsVisible(!isVisible);
-  }
-  
-  function addToken (){
-    changeVisibility()
-    setTokenData({})
-    document.getElementById('form').reset();
-    return setIsNewToken(true);
-  }
-  
-  function editToken (){
-    changeVisibility()
-    return setIsNewToken(false);
-  }
+  const mainBody = [`${blur} mainBody`]
 
   useEffect(() => {
     async function apiCall() {
@@ -64,7 +36,7 @@ function App() {
 
       let totalValue = data.map(token => Number(token.value)).reduce((acc, token) => acc + token, 0);
       setTotalValue(totalValue.toFixed(2));
-      
+
       setTimeout(() => {
         setLoading(false)
       }, 1000);
@@ -74,6 +46,31 @@ function App() {
     apiCall()
   }, [])
 
+  setTimeout(() => {
+    refresh()
+  }, 120000);
+
+  setTimeout(() => {
+    let secs = seconds + 1
+    return setSeconds(secs)
+  }, 1000);
+
+  function changeVisibility() {
+    setBlur(blur == 'noBlur' ? 'blur' : 'noBlur');
+    return setIsVisible(!isVisible);
+  }
+
+  function addToken() {
+    changeVisibility()
+    setTokenData({})
+    document.getElementById('form').reset();
+    return setIsNewToken(true);
+  }
+
+  function editToken() {
+    changeVisibility()
+    return setIsNewToken(false);
+  }
 
   return (
     <div className='App'>
@@ -95,7 +92,7 @@ function App() {
             <div className='information'>
               {tokens && tokens.map((token, i) => {
                 return <form key={i} >
-                  <TokenBalance token={token.token} ticker={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} amount={token.amount} handleClick={editToken}/>
+                  <TokenBalance token={token.token} ticker={token.ticker} value={token.value} price={token.usd} totalValue={totalValue} amount={token.amount} editToken={editToken} />
                 </form>
               })
               }
@@ -107,7 +104,7 @@ function App() {
           </button>
         </div>
       }
-      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken}/>
+      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken} />
     </div>
   )
 }

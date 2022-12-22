@@ -1,0 +1,10 @@
+.tokenMenu{
+    
+}
+
+.deleteToken {
+    position: absolute;
+    padding: 2em;
+    background-color: blue;
+}
+

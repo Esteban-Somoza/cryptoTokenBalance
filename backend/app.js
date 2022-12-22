@@ -15,6 +15,7 @@ app.listen(3000, () => {
 app.use(require('./routes/get'))
 app.use(require('./routes/put'))
 app.use(require('./routes/post'))
+app.use(require('./routes/delete'))
 
 
 // app.post('/hola', function (req, res) {
