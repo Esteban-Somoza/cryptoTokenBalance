@@ -22,8 +22,8 @@ export default function TokenBalance(props) {
         form.preventDefault()
         let confirmDelete = confirm('Are you sure you want to delete this token?')
         if (confirmDelete) {
-            deleteToken({token: props.token})
-            return refresh(); 
+            deleteToken({ token: props.token })
+            return refresh();
         }
         else return
     }
@@ -47,11 +47,13 @@ export default function TokenBalance(props) {
                 <h5>Token Price:</h5>
                 <h4>${props.price.toFixed(3)}</h4>
             </div>
-            {/* <button onClick={editToken}>Edit Token</button> */}
-            <FontAwesomeIcon icon={faPen} className="tokenMenu" />
-            <div>
-                <button onClick={editToken}><FontAwesomeIcon icon={faPen} className="tokenMenu" /></button>
-                <button onClick={deleteTokenConfirm}><FontAwesomeIcon icon={faEraser} className="tokenMenu" /></button>
+            <div className='menu'>
+                <div className="tokenMenu" >
+                    <button onClick={editToken} className="tokenMenuIcon"><FontAwesomeIcon icon={faPen} className="tokenMenuIcon" /></button>
+                    <button onClick={deleteTokenConfirm} className="tokenMenuIcon"><FontAwesomeIcon icon={faEraser} className="tokenMenuIcon" /></button>
+                </div>
+                {/* <button onClick={editToken}>Edit Token</button> */}
+                <FontAwesomeIcon icon={faPen} className="tokenMenuButton" />
             </div>
         </div>
     )
