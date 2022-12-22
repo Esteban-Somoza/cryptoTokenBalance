@@ -21,12 +21,11 @@ export default function TokenBalance(props) {
     function deleteTokenConfirm(form) {
         form.preventDefault()
         let confirmDelete = confirm('Are you sure you want to delete this token?')
-        console.log(confirmDelete);
         if (confirmDelete) {
             deleteToken({token: props.token})
             return refresh(); 
         }
-        else return 
+        else return
     }
 
     return (

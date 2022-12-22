@@ -4,14 +4,17 @@ import postDataBase from "./api/postDataBase";
 import editDataBase from "./api/editDataBase";
 import './form.css'
 
+import clearForm from "./functions/clearForm";
+
 export default function TokenForm({ visibility, changeVisibility, isNewToken }) {
     const { tokenData, setTokenData } = useContext(tokenDataContext)
     let classes = `${visibility} tokenForm`
+    
     function cancel(e) {
         e.preventDefault();
-        document.getElementById('form').reset();
+        changeVisibility()
         setTokenData({})
-        return changeVisibility()
+        return clearForm();
     }
 
     let token = useRef()

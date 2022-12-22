@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
 import refresh from "./functions/refresh";
+import clearForm from "./functions/clearForm";
 
 import './App.css'
 
@@ -55,16 +56,20 @@ function App() {
     return setSeconds(secs)
   }, 1000);
 
+  function changeBlur(){
+    return setBlur(blur == 'noBlur' ? 'blur' : 'noBlur');
+  }
+
   function changeVisibility() {
-    setBlur(blur == 'noBlur' ? 'blur' : 'noBlur');
+    changeBlur();
     return setIsVisible(!isVisible);
   }
 
   function addToken() {
     changeVisibility()
     setTokenData({})
-    document.getElementById('form').reset();
-    return setIsNewToken(true);
+    setIsNewToken(true);
+    return clearForm();
   }
 
   function editToken() {
