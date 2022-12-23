@@ -1,17 +1,22 @@
-import React, { useRef, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { tokenDataContext } from "./context/TokenEditData";
 import postDataBase from "./api/postDataBase";
 import editDataBase from "./api/editDataBase";
 import fetchAllTokens from "./functions/fetchAllTokens";
+import validateTokenOnApi from "./validations/validateTokenOnApi";
+import validateTokenOnDatabase from "./validations/validateTokenOnDatabase";
+
 import './form.css'
 
 import clearForm from "./functions/clearForm";
 
-export default function TokenForm({ visibility, changeVisibility, isNewToken }) {
+export default function TokenForm({ visibility, changeVisibility, isNewToken, tokenDatabase}) {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { tokenData, setTokenData } = useContext(tokenDataContext)
     const [tokenList, setTokenList] = useState([])
+
+    let classes = `${visibility} tokenForm`
 
     useEffect(() => {
         let getAllTokens = async () => {
@@ -22,9 +27,6 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
         getAllTokens()
     }, [])
 
-
-    let classes = `${visibility} tokenForm`
-
     function cancel(e) {
         e.preventDefault();
         changeVisibility()
@@ -32,54 +34,39 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
         return clearForm();
     }
 
-    let validateToken = function (token) {
-        if (tokenList.includes(token)) return true;
-        return false;
-    }
-
-    const onSubmit = (data) => console.log(data);
-
-    let token = useRef()
-    let ticker = useRef()
-    let amount = useRef()
-
-    function submit(form) {
-        form.preventDefault()
-        let tokenData = token.current.value
-        let tickerData = ticker.current.value
-        let amountData = amount.current.value
-
-        let tokenToDatabase = {
-            token: tokenData,
-            ticker: tickerData,
-            amount: amountData
-        }
-
-        isNewToken ? postDataBase(tokenToDatabase) : editDataBase(tokenToDatabase)
+    function submit(data) {
+        isNewToken ? postDataBase(data) : editDataBase(data)
         return window.location.reload();
     }
 
+
     return (
         <div className={classes}>
-            <form onSubmit={handleSubmit(onSubmit)} id='form'>
+            <form onSubmit={handleSubmit(submit)} id='form'>
                 <h2 className='total'>{isNewToken ? 'Add Token:' : 'Edit Token:'}</h2>
                 <label htmlFor="text">Token Name</label>
                 <br />
-                
-                <input type="text" ref={token} defaultValue={isNewToken ? undefined : tokenData.token}
-                    {...register("token", { required: true, validate: value => validateToken(value) })}
+
+                <input type="text" defaultValue={isNewToken ? undefined : tokenData.token}
+                    {...register("token", {
+                        required: true,
+                        validate: {
+                            api: value => validateTokenOnApi(value, tokenList),
+                            database: value => validateTokenOnDatabase(value, tokenDatabase)
+                        }
+                    })}
                     aria-invalid={errors.token ? "true" : "false"}
                     placeholder='ethereum' />
 
                 {errors.token?.type === 'required' && <p role="alert">Token name is required. (Ej: 'bitcoin')</p>}
-                {errors.token?.type === 'validate' && <p role="alert">This token name doesn't match with the database</p>}
-                {/* <h5>note: if the value doesnt appear, this input might not be compatible to coingecko</h5> */}
+                {errors.token?.type === 'api' && <p role="alert">This token name doesn't match with Coingecko's API</p>}
+                {errors.token?.type === 'database' && <p role="alert">You already added this token</p>}
                 <br />
 
                 <label htmlFor="text">Token Ticker</label>
                 <br />
 
-                <input type="text" ref={ticker} defaultValue={isNewToken ? undefined : tokenData.ticker}
+                <input type="text" defaultValue={isNewToken ? undefined : tokenData.ticker}
                     {...register("ticker", { required: true })}
                     aria-invalid={errors.ticker ? "true" : "false"}
                     placeholder='ETH' />
@@ -90,7 +77,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
                 <label htmlFor="text" >amount</label>
 
                 <br />
-                <input type="number" ref={amount} defaultValue={isNewToken ? undefined : tokenData.amount}
+                <input type="number" defaultValue={isNewToken ? undefined : tokenData.amount}
                     {...register("amount", {
                         required: true, validate: {
                             positiveNumber: value => {
@@ -105,7 +92,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
                 {errors.amount?.type === 'positiveNumber' && <p role="alert">Must be positive number</p>}
 
                 <br />
-                
+
                 <button type='submit'>{isNewToken ? 'New Token' : 'Edit Token'}</button>
                 <button className='cancel' onClick={cancel}>X</button>
             </form>

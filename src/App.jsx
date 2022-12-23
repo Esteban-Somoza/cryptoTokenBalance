@@ -109,7 +109,7 @@ function App() {
           </button>
         </div>
       }
-      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken} />
+      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken} tokenDatabase={tokens}/>
     </div>
   )
 }
