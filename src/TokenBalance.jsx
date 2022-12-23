@@ -7,7 +7,7 @@ import deleteToken from "./api/deleteDataBase";
 import './tokenBalance.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen, faEraser } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default function TokenBalance(props) {
     const { tokenData, setTokenData } = useContext(tokenDataContext)
@@ -50,7 +50,7 @@ export default function TokenBalance(props) {
             <div className='menu'>
                 <div className="tokenMenu" >
                     <button onClick={editToken} className="tokenMenuIcon"><FontAwesomeIcon icon={faPen} className="tokenMenuIcon" /></button>
-                    <button onClick={deleteTokenConfirm} className="tokenMenuIcon"><FontAwesomeIcon icon={faEraser} className="tokenMenuIcon" /></button>
+                    <button onClick={deleteTokenConfirm} className="tokenMenuIcon"><FontAwesomeIcon icon={faTrash} className="tokenMenuIcon" /></button>
                 </div>
                 {/* <button onClick={editToken}>Edit Token</button> */}
                 <FontAwesomeIcon icon={faPen} className="tokenMenuButton" />
