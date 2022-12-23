@@ -2,6 +2,7 @@ import axios from "axios"
 
 export default async function validateToken(token) {
     let price = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${token}&vs_currencies=usd`)
+    console.log(price);
     if (Object.keys(price.data).length === 0) return false;
     else return true
 }

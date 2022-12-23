@@ -1,9 +1,10 @@
-import React, { useRef, useContext } from 'react'
+import React, { useRef, useContext, useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { tokenDataContext } from "./context/TokenEditData";
 import postDataBase from "./api/postDataBase";
 import editDataBase from "./api/editDataBase";
 import validateToken from "./functions/validateToken";
+import fetchAllTokens from "./functions/fetchAllTokens";
 import './form.css'
 
 import clearForm from "./functions/clearForm";
@@ -11,6 +12,18 @@ import clearForm from "./functions/clearForm";
 export default function TokenForm({ visibility, changeVisibility, isNewToken }) {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { tokenData, setTokenData } = useContext(tokenDataContext)
+    const [tokenList, setTokenList] = useState([])
+
+    useEffect(() => {
+        let getAllTokens = async () => {
+            let result = await fetchAllTokens()
+            console.log(result.length);
+            return setTokenList(result)
+        }
+        getAllTokens()
+    }, [])
+
+
     let classes = `${visibility} tokenForm`
 
     function cancel(e) {
@@ -20,10 +33,10 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
         return clearForm();
     }
 
-    // let validateToken = function (a) {
-    //     // if (a == 'hi') return false
-    //     return true
-    // }
+    let validateToken = function (token) {
+        if (tokenList.includes(token)) return true;
+        return false;
+    }
 
     const onSubmit = (data) => console.log(data);
 
@@ -63,7 +76,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
                     placeholder='ethereum' />
 
                 {errors.token?.type === 'required' && <p role="alert">Token name is required. (Ej: 'bitcoin')</p>}
-                {errors.token?.type === 'validate' && <p role="alert">This token name might not be compatible with Coingecko</p>}
+                {errors.token?.type === 'validate' && <p role="alert">This token name doesn't match with the database</p>}
                 {/* <h5>note: if the value doesnt appear, this input might not be compatible to coingecko</h5> */}
                 <br />
 
