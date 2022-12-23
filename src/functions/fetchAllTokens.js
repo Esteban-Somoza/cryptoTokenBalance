@@ -8,8 +8,4 @@ export default async function fetchAllTokens() {
     let accumulator = []
     tokens.data.forEach(token => accumulator.push(token.id))
     return accumulator
-    // if (Object.keys(price.data).length === 0) return false;
-    // else return true
 }
-
-// could get a full list of tokens and compare to that instead of calling the api every time

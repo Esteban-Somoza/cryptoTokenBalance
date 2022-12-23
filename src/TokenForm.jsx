@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { tokenDataContext } from "./context/TokenEditData";
 import postDataBase from "./api/postDataBase";
 import editDataBase from "./api/editDataBase";
-import validateToken from "./functions/validateToken";
 import fetchAllTokens from "./functions/fetchAllTokens";
 import './form.css'
 
@@ -65,11 +64,8 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
             <form onSubmit={handleSubmit(onSubmit)} id='form'>
                 <h2 className='total'>{isNewToken ? 'Add Token:' : 'Edit Token:'}</h2>
                 <label htmlFor="text">Token Name</label>
-                {/* <input 
-        {...register("firstName", { required: true })} 
-        aria-invalid={errors.firstName ? "true" : "false"} 
-      /> */}
                 <br />
+                
                 <input type="text" ref={token} defaultValue={isNewToken ? undefined : tokenData.token}
                     {...register("token", { required: true, validate: value => validateToken(value) })}
                     aria-invalid={errors.token ? "true" : "false"}
@@ -82,6 +78,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
 
                 <label htmlFor="text">Token Ticker</label>
                 <br />
+
                 <input type="text" ref={ticker} defaultValue={isNewToken ? undefined : tokenData.ticker}
                     {...register("ticker", { required: true })}
                     aria-invalid={errors.ticker ? "true" : "false"}
@@ -91,6 +88,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
 
                 <br />
                 <label htmlFor="text" >amount</label>
+
                 <br />
                 <input type="number" ref={amount} defaultValue={isNewToken ? undefined : tokenData.amount}
                     {...register("amount", {
@@ -107,6 +105,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken }) 
                 {errors.amount?.type === 'positiveNumber' && <p role="alert">Must be positive number</p>}
 
                 <br />
+                
                 <button type='submit'>{isNewToken ? 'New Token' : 'Edit Token'}</button>
                 <button className='cancel' onClick={cancel}>X</button>
             </form>
