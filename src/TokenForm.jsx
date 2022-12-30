@@ -12,10 +12,10 @@ import './form.css'
 
 import clearForm from "./functions/clearForm";
 
-export default function TokenForm({ visibility, changeVisibility, isNewToken, tokenDatabase }) {
-    const { register, formState: { errors }, handleSubmit } = useForm();
+export default function TokenForm({ visibility, changeVisibility, isNewToken, tokenDatabase, data }) {
+    const { register, watch, formState: { errors }, handleSubmit } = useForm();
     const { tokenData, setTokenData } = useContext(tokenDataContext)
-    const [tokenList, setTokenList] = useState([])
+    const [tokenList, setTokenList] = useState([]);
 
     let classes = `${visibility} tokenForm`
 
@@ -36,12 +36,13 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
         return clearForm();
     }
 
+
     function submit(data) {
+        console.log(data);
         isNewToken ? postDataBase(data) : editDataBase(data)
         // return window.location.reload();
     }
 
-    console.log(isNewToken);
 
     return (
         <div className={classes}>
@@ -50,12 +51,17 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
                 <label htmlFor="text">Token Name</label>
                 <br />
 
-                <input type="text" defaultValue={isNewToken ? undefined : tokenData.token}
+                <input type="text" defaultValue={isNewToken ? undefined : data.token} readOnly={!isNewToken ? true : false}
                     {...register("token", {
                         required: true,
                         validate: {
                             api: value => validateTokenOnApi(value, tokenList),
-                            database: value => isNewToken ? true : validateTokenOnDatabase(value, tokenDatabase)
+                            database: value => {
+                                if(isNewToken){
+                                    let validation = validateTokenOnDatabase(value, tokenDatabase)
+                                    return validation
+                                } else return true
+                            }
                         }
                     })}
                     aria-invalid={errors.token ? "true" : "false"}
@@ -69,7 +75,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
                 <label htmlFor="text">Token Ticker</label>
                 <br />
 
-                <input type="text" defaultValue={isNewToken ? undefined : tokenData.ticker}
+                <input type="text" defaultValue={isNewToken ? undefined : data.ticker}
                     {...register("ticker", { required: true })}
                     aria-invalid={errors.ticker ? "true" : "false"}
                     placeholder='ETH' />
@@ -80,7 +86,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
                 <label htmlFor="text" >amount</label>
 
                 <br />
-                <input type="number" defaultValue={isNewToken ? undefined : tokenData.amount}
+                <input type="number" defaultValue={isNewToken ? undefined : data.amount}
                     {...register("amount", {
                         required: true, validate: {
                             positiveNumber: value => {

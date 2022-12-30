@@ -47,9 +47,9 @@ function App() {
     apiCall()
   }, [])
 
-  setTimeout(() => {
-    refresh()
-  }, 120000);
+  // setTimeout(() => {
+  //   refresh()
+  // }, 120000);
 
   setTimeout(() => {
     let secs = seconds + 1
@@ -109,7 +109,7 @@ function App() {
           </button>
         </div>
       }
-      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken} tokenDatabase={tokens}/>
+      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken} tokenDatabase={tokens} data={tokenData}/>
     </div>
   )
 }

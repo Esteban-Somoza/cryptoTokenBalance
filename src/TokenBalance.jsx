@@ -11,10 +11,13 @@ import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default function TokenBalance(props) {
     const { tokenData, setTokenData } = useContext(tokenDataContext)
+    const [rerender, setRerender] = useState(false);
+
 
     function editToken(form) {
         form.preventDefault()
         props.editToken()
+        setRerender(!rerender)
         return setTokenData(props)
     }
 
