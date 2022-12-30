@@ -49,7 +49,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
     function submit(data) {
         console.log(data);
         isNewToken ? postDataBase(data) : editDataBase(data)
-        // return window.location.reload();
+        return window.location.reload();
     }
 
 

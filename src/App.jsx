@@ -28,8 +28,8 @@ function App() {
   const [totalValue, setTotalValue] = useState(0)
   const [seconds, setSeconds] = useState(0)
 
-
   const mainBody = [`${blur} mainBody`]
+  
 
   useEffect(() => {
     async function apiCall() {
@@ -45,29 +45,34 @@ function App() {
         let result = await getCoingeckoTokens()
         return setTokenList(result)
       }, 1000);
-      
+
       return setTokens(orderedData);
     }
     apiCall()
   }, [])
 
-  // setTimeout(() => {
-  //   refresh()
-  // }, 120000);
+
+  setTimeout(() => {
+    refresh()
+  }, 120000);
+
 
   setTimeout(() => {
     let secs = seconds + 1
     return setSeconds(secs)
   }, 1000);
 
-  function changeBlur(){
+
+  function changeBlur() {
     return setBlur(blur == 'noBlur' ? 'blur' : 'noBlur');
   }
+
 
   function changeVisibility() {
     changeBlur();
     return setIsVisible(!isVisible);
   }
+
 
   function addToken() {
     changeVisibility()
@@ -113,7 +118,7 @@ function App() {
           </button>
         </div>
       }
-      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken} tokenDatabase={tokens} data={tokenData} tokenList={tokenList}/>
+      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken} tokenDatabase={tokens} data={tokenData} tokenList={tokenList} />
     </div>
   )
 }
