@@ -13,6 +13,7 @@ import TokenBalance from './TokenBalance'
 import TokenForm from './TokenForm'
 import getDataBase from "./api/getDataBase";
 import coingeckoApiCall from './api/coingecko'
+import getCoingeckoTokens from './api/fetchCoingeckoTokensApi'
 import sortByValue from './functions/sortByValue';
 
 
@@ -20,7 +21,6 @@ function App() {
   const { tokenData, setTokenData } = useContext(tokenDataContext)
   const [blur, setBlur] = useState('noBlur')
   const [isVisible, setIsVisible] = useState(false)
-  const [deleteMenuVisible, setDeleteMenuVisible] = useState(false)
   const [isNewToken, setIsNewToken] = useState(true)
   const [tokens, setTokens] = useState([])
   const [loading, setLoading] = useState(true)

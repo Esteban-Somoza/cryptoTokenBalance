@@ -4,6 +4,7 @@ import { tokenDataContext } from "./context/TokenEditData";
 import postDataBase from "./api/postDataBase";
 import editDataBase from "./api/editDataBase";
 import fetchAllTokens from "./functions/fetchAllTokens";
+import getCoingeckoTokens from './api/fetchCoingeckoTokensApi'
 import validateTokenOnApi from "./validations/validateTokenOnApi";
 import validateTokenOnDatabase from "./validations/validateTokenOnDatabase";
 
@@ -11,7 +12,7 @@ import './form.css'
 
 import clearForm from "./functions/clearForm";
 
-export default function TokenForm({ visibility, changeVisibility, isNewToken, tokenDatabase}) {
+export default function TokenForm({ visibility, changeVisibility, isNewToken, tokenDatabase }) {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { tokenData, setTokenData } = useContext(tokenDataContext)
     const [tokenList, setTokenList] = useState([])
@@ -19,12 +20,13 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
     let classes = `${visibility} tokenForm`
 
     useEffect(() => {
-        let getAllTokens = async () => {
-            let result = await fetchAllTokens()
-            console.log(result.length);
-            return setTokenList(result)
-        }
-        getAllTokens()
+        setTimeout(() => {
+            let getAllTokens = async () => {
+                let result = await getCoingeckoTokens()
+                return setTokenList(result)
+            }
+            getAllTokens()
+        }, 5000);
     }, [])
 
     function cancel(e) {
@@ -36,9 +38,10 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
 
     function submit(data) {
         isNewToken ? postDataBase(data) : editDataBase(data)
-        return window.location.reload();
+        // return window.location.reload();
     }
 
+    console.log(isNewToken);
 
     return (
         <div className={classes}>
@@ -52,7 +55,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
                         required: true,
                         validate: {
                             api: value => validateTokenOnApi(value, tokenList),
-                            database: value => validateTokenOnDatabase(value, tokenDatabase)
+                            database: value => isNewToken ? true : validateTokenOnDatabase(value, tokenDatabase)
                         }
                     })}
                     aria-invalid={errors.token ? "true" : "false"}
