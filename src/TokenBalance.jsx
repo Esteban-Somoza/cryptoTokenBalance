@@ -55,7 +55,6 @@ export default function TokenBalance(props) {
                     <button onClick={editToken} className="tokenMenuIcon"><FontAwesomeIcon icon={faPen} className="tokenMenuIcon" /></button>
                     <button onClick={deleteTokenConfirm} className="tokenMenuIcon"><FontAwesomeIcon icon={faTrash} className="tokenMenuIcon" /></button>
                 </div>
-                {/* <button onClick={editToken}>Edit Token</button> */}
                 <FontAwesomeIcon icon={faPen} className="tokenMenuButton" />
             </div>
         </div>

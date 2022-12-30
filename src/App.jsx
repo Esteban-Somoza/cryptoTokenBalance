@@ -21,11 +21,13 @@ function App() {
   const { tokenData, setTokenData } = useContext(tokenDataContext)
   const [blur, setBlur] = useState('noBlur')
   const [isVisible, setIsVisible] = useState(false)
+  const [tokenList, setTokenList] = useState([])
   const [isNewToken, setIsNewToken] = useState(true)
   const [tokens, setTokens] = useState([])
   const [loading, setLoading] = useState(true)
   const [totalValue, setTotalValue] = useState(0)
   const [seconds, setSeconds] = useState(0)
+
 
   const mainBody = [`${blur} mainBody`]
 
@@ -38,10 +40,12 @@ function App() {
       let totalValue = data.map(token => Number(token.value)).reduce((acc, token) => acc + token, 0);
       setTotalValue(totalValue.toFixed(2));
 
-      setTimeout(() => {
+      setTimeout(async () => {
         setLoading(false)
+        let result = await getCoingeckoTokens()
+        return setTokenList(result)
       }, 1000);
-
+      
       return setTokens(orderedData);
     }
     apiCall()
@@ -109,7 +113,7 @@ function App() {
           </button>
         </div>
       }
-      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken} tokenDatabase={tokens} data={tokenData}/>
+      <TokenForm visibility={isVisible} changeVisibility={addToken} isNewToken={isNewToken} tokenDatabase={tokens} data={tokenData} tokenList={tokenList}/>
     </div>
   )
 }

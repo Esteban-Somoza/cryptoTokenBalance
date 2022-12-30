@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useForm } from "react-hook-form";
 import { tokenDataContext } from "./context/TokenEditData";
 import postDataBase from "./api/postDataBase";
 import editDataBase from "./api/editDataBase";
-import fetchAllTokens from "./functions/fetchAllTokens";
-import getCoingeckoTokens from './api/fetchCoingeckoTokensApi'
+
 import validateTokenOnApi from "./validations/validateTokenOnApi";
 import validateTokenOnDatabase from "./validations/validateTokenOnDatabase";
 
@@ -12,22 +11,15 @@ import './form.css'
 
 import clearForm from "./functions/clearForm";
 
-export default function TokenForm({ visibility, changeVisibility, isNewToken, tokenDatabase, data }) {
-    const { register, watch, formState: { errors }, handleSubmit } = useForm();
+export default function TokenForm({ visibility, changeVisibility, isNewToken, tokenDatabase, data, tokenList }) {
+    const { register, watch, formState: { errors }, handleSubmit, reset } = useForm();
     const { tokenData, setTokenData } = useContext(tokenDataContext)
-    const [tokenList, setTokenList] = useState([]);
 
     let classes = `${visibility} tokenForm`
 
     useEffect(() => {
-        setTimeout(() => {
-            let getAllTokens = async () => {
-                let result = await getCoingeckoTokens()
-                return setTokenList(result)
-            }
-            getAllTokens()
-        }, 5000);
-    }, [])
+        reset()
+    }, [visibility])
 
     function cancel(e) {
         e.preventDefault();
@@ -36,11 +28,9 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
         return clearForm();
     }
 
-
     function submit(data) {
-        console.log(data);
         isNewToken ? postDataBase(data) : editDataBase(data)
-        // return window.location.reload();
+        return window.location.reload();
     }
 
 
@@ -57,7 +47,7 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
                         validate: {
                             api: value => validateTokenOnApi(value, tokenList),
                             database: value => {
-                                if(isNewToken){
+                                if (isNewToken) {
                                     let validation = validateTokenOnDatabase(value, tokenDatabase)
                                     return validation
                                 } else return true
@@ -86,11 +76,11 @@ export default function TokenForm({ visibility, changeVisibility, isNewToken, to
                 <label htmlFor="text" >amount</label>
 
                 <br />
-                <input type="number" defaultValue={isNewToken ? undefined : data.amount}
+                <input type="number" step="0.001" defaultValue={isNewToken ? undefined : data.amount}
                     {...register("amount", {
                         required: true, validate: {
                             positiveNumber: value => {
-                                return parseFloat(value) >= 0;
+                                return parseFloat(value) > 0;
                             }
                         }
                     })}

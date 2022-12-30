@@ -5,8 +5,9 @@ const getCoingeckoTokens = async (req, res) => {
         let tokens = await axios.request('https://api.coingecko.com/api/v3/coins/list',
             { headers: { "Accept-Encoding": "gzip,deflate,compress" } })
         let accumulator = []
-        console.log('ok');
+
         tokens.data.forEach(token => accumulator.push(token.id))
+        
         return res.send(accumulator).status(200)
     } catch (error) {
         console.log(error.request.res.statusMessage);
