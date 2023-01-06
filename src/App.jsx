@@ -29,7 +29,7 @@ function App() {
   const [seconds, setSeconds] = useState(0)
 
   const mainBody = [`${blur} mainBody`]
-  
+
 
   useEffect(() => {
     async function apiCall() {
@@ -72,7 +72,6 @@ function App() {
     changeBlur();
     return setIsVisible(!isVisible);
   }
-
 
   function addToken() {
     changeVisibility()
